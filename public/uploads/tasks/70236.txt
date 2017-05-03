@@ -1,0 +1,11 @@
+ADMIN:
+usr : jc@mail.com
+paass : secret
+
+DOCENTE:
+usr : miguel@mail.com
+pass: secret
+
+ALUMNO:
+usr : carlos@mail.com
+pass: secret
