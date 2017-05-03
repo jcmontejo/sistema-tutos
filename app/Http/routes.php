@@ -1,23 +1,12 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
 Route::get('/', function () {
-     $user = Auth::user();
-    if (empty($user)) {
-        return view('welcome');
-    }else{
-        return view('home');
-    }
+   $user = Auth::user();
+   if (empty($user)) {
+    return view('welcome');
+}else{
+    return view('home');
+}
 });
 
 Route::auth();
@@ -116,7 +105,7 @@ Route::get('add-comment/{id}',[
 Route::get('users/{id}',[
     'as' => 'view.lessons',
     'uses' => 'TutorsController@viewlesson',
-]);
+    ]);
 /*End*/
 
 /*Routes director*/
@@ -157,10 +146,10 @@ Route::get('/individualreport/{id}', function($id){
 
 Route::get('/tutorialreport/{id}', function($id){
     $data = App\Models\Tutorialreport::find($id);
-    /*$paper_size = array(0,0,360,360);
+    $paper_size = array(0,0,360,360);
     $pdf = PDF::loadView('testpdf', array('data' => $data))->setPaper('a4','landscape');
-    return $pdf->download('Programa General de Tutorías.pdf');*/
-    return view('testpdf')->with('data', $data);
+    return $pdf->download('Programa General de Tutorías.pdf');
+    //return view('testpdf')->with('data', $data);
 });
 
 Route::get('tutoring/{id}', function($id) {
@@ -326,7 +315,7 @@ Route::resource('tutorialreports', 'TutorialreportController');
 Route::get('tutorialreports/{id}/delete', [
     'as' => 'tutorialreports.delete',
     'uses' => 'TutorialreportController@destroy',
-]);
+    ]);
 
 
 Route::resource('comments', 'CommentController');
@@ -334,7 +323,7 @@ Route::resource('comments', 'CommentController');
 Route::get('comments/{id}/delete', [
     'as' => 'comments.delete',
     'uses' => 'CommentController@destroy',
-]);
+    ]);
 
 Route::get('updatepassword', function() {
     return view('update');
@@ -354,7 +343,7 @@ Route::resource('exercises', 'ExerciseController');
 Route::get('exercises/{id}/delete', [
     'as' => 'exercises.delete',
     'uses' => 'ExerciseController@destroy',
-]);
+    ]);
 
 
 Route::resource('individuals', 'IndividualController');
@@ -362,7 +351,7 @@ Route::resource('individuals', 'IndividualController');
 Route::get('individuals/{id}/delete', [
     'as' => 'individuals.delete',
     'uses' => 'IndividualController@destroy',
-]);
+    ]);
 
 
 Route::resource('itemindividuals', 'ItemindividualController');
@@ -370,7 +359,7 @@ Route::resource('itemindividuals', 'ItemindividualController');
 Route::get('itemindividuals/{id}/delete', [
     'as' => 'itemindividuals.delete',
     'uses' => 'ItemindividualController@destroy',
-]);
+    ]);
 
 
 Route::resource('lessons', 'LessonController');
@@ -378,4 +367,16 @@ Route::resource('lessons', 'LessonController');
 Route::get('lessons/{id}/delete', [
     'as' => 'lessons.delete',
     'uses' => 'LessonController@destroy',
-]);
+    ]);
+
+Route::get('view-lessons', function(){
+    $user = Auth::user();
+    $tutor = $user->tutor;
+    $lessons = $tutor->lessons;
+
+    $pdf = PDF::loadView('pdf.lessons', array('lessons' => $lessons))->setPaper('a4');
+    return $pdf->download('calendario de sesiones.pdf');
+
+});
+
+

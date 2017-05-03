@@ -101,7 +101,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ url('/tutorialreports')}}">Informe de Programa de Tutorías</a></li>
                     <li><a href="{{ url('/individuals')}}">Programa Individual de Tutorías</a></li>
-                    <li><a href="">Calendario de Sesiones</a></li>
+                    <li><a href="{{ url('view-lessons') }}">Calendario de Sesiones</a></li>
                 </ul>
             </li>
             <!--<li><a href="#"><i class='fa fa-print'></i> <span>Resultado General</span></a></li>
